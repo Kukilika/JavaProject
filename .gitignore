@@ -2,9 +2,7 @@
 /shelf/
 /workspace.xml
 # Datasource local storage ignored files
-/../../../../../../../:\Users\anegura\Documents\PersonalProjects\JavaProject\.idea/dataSources/
-/dataSources.local.xml
+.idea/
 # Editor-based HTTP Client requests
 /httpRequests/
 
-.idea
