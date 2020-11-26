@@ -2,7 +2,6 @@ package CSP.models;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
 @Table(name = "USERS")
