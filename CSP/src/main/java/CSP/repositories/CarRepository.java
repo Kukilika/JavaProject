@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class CarArticleRepository {
+public class CarRepository {
     private List<Car> carList = new ArrayList<>();
 
     public void addCar(Car car){
