@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "CARS")
-public class CarArticle {
+public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "car_id")
@@ -32,7 +32,7 @@ public class CarArticle {
     @Column(name = "carPrice")
     private Long price;
 
-    public CarArticle(String make, String model, String description, Long mileage, Boolean accident, User owner, Long price) {
+    public Car(String make, String model, String description, Long mileage, Boolean accident, User owner, Long price) {
         this.make = make;
         this.model = model;
         this.description = description;
@@ -42,10 +42,10 @@ public class CarArticle {
         this.price = price;
     }
 
-    public CarArticle() {
+    public Car() {
     }
 
-    public CarArticle(Long id, String make, String model, String description, Long mileage, Boolean accident, User owner, Long price) {
+    public Car(Long id, String make, String model, String description, Long mileage, Boolean accident, User owner, Long price) {
         this.id = id;
         this.make = make;
         this.model = model;

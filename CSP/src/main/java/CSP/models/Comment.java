@@ -17,16 +17,16 @@ public class Comment {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",joinColumns = @JoinColumn(name = "comment_id"), inverseJoinColumns = @JoinColumn(name = "car_id"))
-    private CarArticle carArticle;
+    private Car car;
 
     public Comment() {
 
     }
 
-    public Comment(Long id, User poster, CarArticle carArticle) {
+    public Comment(Long id, User poster, Car car) {
         this.id = id;
         this.poster = poster;
-        this.carArticle = carArticle;
+        this.car = car;
     }
 
     public Long getId() {
@@ -45,11 +45,11 @@ public class Comment {
         this.poster = poster;
     }
 
-    public CarArticle getCarArticle() {
-        return carArticle;
+    public Car getCarArticle() {
+        return car;
     }
 
-    public void setCarArticle(CarArticle carArticle) {
-        this.carArticle = carArticle;
+    public void setCarArticle(Car car) {
+        this.car = car;
     }
 }

@@ -24,9 +24,9 @@ public class Transaction {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinTable(name = "transaction_car",joinColumns = @JoinColumn(name = "transaction_id"),
             inverseJoinColumns = @JoinColumn(name = "car_id"))
-    private CarArticle soldCar;
+    private Car soldCar;
 
-    public Transaction(User buyer, User seller, CarArticle soldCar) {
+    public Transaction(User buyer, User seller, Car soldCar) {
         this.buyer = buyer;
         this.seller = seller;
         this.soldCar = soldCar;
@@ -35,7 +35,7 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(Long id, User buyer, User seller, CarArticle soldCar) {
+    public Transaction(Long id, User buyer, User seller, Car soldCar) {
         this.id = id;
         this.buyer = buyer;
         this.seller = seller;
@@ -66,11 +66,11 @@ public class Transaction {
         this.seller = seller;
     }
 
-    public CarArticle getSoldCar() {
+    public Car getSoldCar() {
         return soldCar;
     }
 
-    public void setSoldCar(CarArticle soldCar) {
+    public void setSoldCar(Car soldCar) {
         this.soldCar = soldCar;
     }
 }
