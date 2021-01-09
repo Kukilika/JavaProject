@@ -16,7 +16,7 @@ public class Comment {
     private User poster;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role",joinColumns = @JoinColumn(name = "comment_id"), inverseJoinColumns = @JoinColumn(name = "car_id"))
+    @JoinTable(name = "car_comment",joinColumns = @JoinColumn(name = "comment_id"), inverseJoinColumns = @JoinColumn(name = "car_id"))
     private Car car;
 
     public Comment() {

@@ -18,18 +18,19 @@ public class UserService {
     }
 
     public void addUser(User user){
-        userRepository.addUser(user);
+        userRepository.save(user);
     }
 
     public void removeUser(User user){
-        userRepository.removeUser(user);
+        userRepository.delete(user);
     }
 
-    public void updateUser(User oldUser, User newUser){
-        userRepository.updateUser(oldUser,newUser);
+    public void updateUser(User newUser){
+        userRepository.save(newUser);
     }
+
 
     public List<User> getAllUsers(){
-        return userRepository.getAllUsers();
+        return userRepository.findAll();
     }
 }
