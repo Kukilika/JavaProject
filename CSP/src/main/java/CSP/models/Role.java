@@ -1,6 +1,7 @@
 package CSP.models;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Table(name = "role")
@@ -12,6 +13,11 @@ public class Role {
 
     @Column(name = "role")
     private String role;
+
+    public Role(Optional<Role> role) {
+        this.id = role.get().getId();
+        this.role = role.get().getRole();
+    }
 
     public Role() {
     }

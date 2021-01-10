@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoleService {
@@ -18,18 +19,22 @@ public class RoleService {
     }
 
     public void addRole(Role role){
-        roleRepository.addRole(role);
+        roleRepository.save(role);
     }
 
     public void removeRole(Role role){
-        roleRepository.removeRole(role);
+        roleRepository.delete(role);
     }
 
-    public void updateRole(Role oldRole, Role newRole){
-        roleRepository.updateRole(oldRole, newRole);
+    public void updateRole(Role newRole){
+        roleRepository.save(newRole);
+    }
+
+    public Optional<Role> getUserRole(){
+        return roleRepository.findById(0l);
     }
 
     public List<Role> getAllRoles(){
-        return roleRepository.getAllRoles();
+        return roleRepository.findAll();
     }
 }

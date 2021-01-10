@@ -2,6 +2,7 @@ package CSP.models;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Optional;
 
 @Entity
 @Table(name = "USERS")
@@ -44,6 +45,38 @@ public class User {
         this.password = password;
         this.date = date;
         this.role = role;
+    }
+
+
+
+    public User(Long id, String username, String firstName, String lastName, String email, String password, LocalDate date, Role role) {
+        this.id = id;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.date = date;
+        this.role = role;
+    }
+
+    public User(User user) {
+
+    }
+
+    public User(Optional<User> optionalUser) {
+        if(optionalUser.isPresent()){
+            this.password = optionalUser.get().getPassword();
+            this.username = optionalUser.get().getUsername();
+            this.email = optionalUser.get().getEmail();
+            this.date = optionalUser.get().getDate();
+            this.firstName = optionalUser.get().getFirstName();
+            this.lastName = optionalUser.get().getLastName();
+            this.role = optionalUser.get().getRole();
+            this.id = optionalUser.get().getId();
+        }else{
+
+        }
     }
 
     public Long getId() {
