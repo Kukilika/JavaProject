@@ -4,15 +4,14 @@ import CSP.models.Role;
 import CSP.models.User;
 import CSP.services.RoleService;
 import CSP.services.UserService;
+import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -32,16 +31,33 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public void addUser(@Validated @RequestBody User user){
+    public ResponseEntity<User> addUser(@Validated @RequestBody User user){
 
-        User newUser = new User();
-        newUser.setDate(LocalDate.now());
-        newUser.setEmail(user.getEmail());
-        newUser.setUsername(user.getUsername());
-        newUser.setFirstName(user.getFirstName());
-        newUser.setLastName(user.getLastName());
-        newUser.setPassword(user.getPassword());
-        newUser.setRole(new Role(roleService.getUserRole()));
+        if (userService.isUsernameTaken(user.getUsername()) == Boolean.TRUE){
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }else{
+            userService.addUser(user);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{username}")
+    public ResponseEntity<User> deleteUser(@PathVariable String username){
+
+        if(userService.isUsernameTaken(username) && userService.hasUserPermissions(username)){
+            userService.removeUser(username);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
+    @PutMapping("/{username}")
+    public ResponseEntity<User> updateUser(@PathVariable String username, @RequestBody User user){
+        if(userService.isUsernameTaken(username) && userService.hasUserPermissions(username)){
+            userService.updateUser(user, username);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
 }

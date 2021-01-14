@@ -6,9 +6,10 @@ import java.util.Optional;
 
 @Entity
 @Table(name = "USERS")
+@SequenceGenerator(name= "seq", initialValue = 3)
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     @Column(name = "user_id")
     private Long id;
 

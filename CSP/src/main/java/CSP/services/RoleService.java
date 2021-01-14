@@ -19,7 +19,9 @@ public class RoleService {
     }
 
     public void addRole(Role role){
-        roleRepository.save(role);
+        Role newRole = new Role();
+        newRole.setRole(role.getRole());
+        roleRepository.save(newRole);
     }
 
     public void removeRole(Role role){
@@ -31,10 +33,14 @@ public class RoleService {
     }
 
     public Optional<Role> getUserRole(){
-        return roleRepository.findById(0l);
+        return roleRepository.findRoleByRole("User");
     }
 
     public List<Role> getAllRoles(){
         return roleRepository.findAll();
+    }
+
+    public Boolean isPresentInDatabase(String role){
+        return !roleRepository.findRoleByRole(role).isEmpty();
     }
 }

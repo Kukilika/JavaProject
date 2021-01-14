@@ -5,9 +5,10 @@ import java.util.Optional;
 
 @Entity
 @Table(name = "role")
+@SequenceGenerator(name= "seq", initialValue = 3)
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq")
     @Column(name = "role_id")
     private Long id;
 
