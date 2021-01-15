@@ -35,6 +35,23 @@ public class User {
     @JoinTable(name = "user_role",joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Role role;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
+    public Boolean isAdmin(){
+        if(this.getRole().getRole().equals("Admin")){
+            return true;
+        }
+        return false;
+    }
+
     public User() {
     }
 

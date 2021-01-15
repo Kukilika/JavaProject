@@ -1,28 +1,14 @@
 package CSP.repositories;
 
 import CSP.models.Car;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
+
 
 @Repository
-public class CarRepository {
-    private List<Car> carList = new ArrayList<>();
+public interface CarRepository extends JpaRepository<Car,Long> {
 
-    public void addCar(Car car){
-        carList.add(car);
-    }
-
-    public void removeCar(Car car){
-        carList.remove(car);
-    }
-
-    public void updateCar(Car oldCar, Car newCar){
-        carList.set(carList.indexOf(oldCar) , newCar);
-    }
-
-    public List<Car> getAllCars(){
-        return carList;
-    }
+    public Optional<Car> findAllById(Long id);
 }

@@ -1,6 +1,7 @@
 package CSP.models;
 
 import javax.persistence.*;
+import java.util.Optional;
 
 @Entity
 @Table(name = "CARS")
@@ -19,18 +20,42 @@ public class Car {
     @Column(name = "carDescription")
     private String description;
 
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", make='" + make + '\'' +
+                ", model='" + model + '\'' +
+                ", description='" + description + '\'' +
+                ", mileage=" + mileage +
+                ", accident=" + accident +
+                ", owner=" + owner +
+                ", price=" + price +
+                '}';
+    }
+
     @Column(name = "carMileage")
     private Long mileage;
 
     @Column(name = "carAccident")
     private Boolean accident;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinTable(name = "user_car",joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "car_id"))
     private User owner;
 
     @Column(name = "carPrice")
     private Long price;
+
+    public Car(Optional<Car> car){
+        this.make = car.get().getMake();
+        this.model = car.get().getModel();
+        this.description = car.get().getDescription();
+        this.mileage = car.get().getMileage();
+        this.accident = car.get().getAccident();
+        this.owner = car.get().getOwner();
+        this.price = car.get().getPrice();
+    }
 
     public Car(String make, String model, String description, Long mileage, Boolean accident, User owner, Long price) {
         this.make = make;
@@ -109,6 +134,7 @@ public class Car {
     }
 
     public void setOwner(User owner) {
+        System.out.println(owner.getUsername());
         this.owner = owner;
     }
 

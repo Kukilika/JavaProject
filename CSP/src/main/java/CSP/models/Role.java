@@ -15,6 +15,14 @@ public class Role {
     @Column(name = "role")
     private String role;
 
+    @Override
+    public String toString() {
+        return "Role{" +
+                "id=" + id +
+                ", role='" + role + '\'' +
+                '}';
+    }
+
     public Role(Optional<Role> role) {
         this.id = role.get().getId();
         this.role = role.get().getRole();

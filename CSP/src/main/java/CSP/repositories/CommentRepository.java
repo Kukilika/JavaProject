@@ -1,29 +1,19 @@
 package CSP.repositories;
 
+import CSP.models.Car;
 import CSP.models.Comment;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 
 @Repository
-public class CommentRepository {
+public interface CommentRepository extends JpaRepository<Comment,Long> {
+    public Optional<Comment> findAllById(Long id);
 
-    public List<Comment> commentList = new ArrayList<>();
-
-    public void addComment(Comment comment){
-        commentList.add(comment);
-    }
-
-    public void removeComment(Comment comment){
-        commentList.remove(comment);
-    }
-
-    public void updateComment(Comment oldComment, Comment newComment){
-        commentList.set(commentList.indexOf(oldComment) , newComment);
-    }
-
-    public List<Comment> getAllComments(){
-        return commentList;
-    }
+//    @Query(value = "select * from comments where comment_id in ?1", nativeQuery = true)
+//    public List<Comment> getAllCarsById(List<Long> ids);
 }

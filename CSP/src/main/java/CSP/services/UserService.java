@@ -22,6 +22,12 @@ public class UserService {
     @Autowired
     private RoleService roleService;
 
+    @Autowired
+    private CarService carService;
+
+    @Autowired
+    private CommentService commentService;
+
     public UserService(UserRepository userRepository){
         this.userRepository = userRepository;
     }
@@ -70,7 +76,7 @@ public class UserService {
         return !userRepository.findByUsername(username).isEmpty();
     }
 
-    public Boolean hasUserPermissions(String username){
+    public Boolean hasUserPermissionsToEditUser(String username){
         //A user can only edit his/her account, except for the admin
         //The admin can edit also other peoples users
         //For developing purposes I added the possibility to do this as an anonymous user
@@ -86,6 +92,33 @@ public class UserService {
             return true;
         }
         return false;
-
     }
+
+    public Boolean hasUserPermissionsToEditCar(Long id){
+        if(loggedUser().isAdmin() || carService.getCar(id).getOwner().getId() == loggedUser().getId()){
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean hasUserPermissionsToEditComment(Long id) {
+        if(loggedUser().isAdmin() || commentService.getComment(id).getUser().getId() == loggedUser().getId()){
+            return true;
+        }
+        return false;
+    }
+
+    public User loggedUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user;
+        if(authentication.getName().equals("anonymousUser")){
+            user = new User(userRepository.findByUsername("admin"));
+        }else {
+            user = new User(userRepository.findByUsername(authentication.getName()));
+        }
+        return user;
+    }
+
+
 }

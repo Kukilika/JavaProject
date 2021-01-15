@@ -11,35 +11,11 @@ public class Transaction {
     @Column(name = "comment_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinTable(name = "transaction_buyer",joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "transaction_id"))
-    private User buyer;
+    @Column(name = "receipt", columnDefinition = "TEXT")
+    private String receipt;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinTable(name = "transaction_seller",joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "transaction_id"))
-    private User seller;
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinTable(name = "transaction_car",joinColumns = @JoinColumn(name = "transaction_id"),
-            inverseJoinColumns = @JoinColumn(name = "car_id"))
-    private Car soldCar;
-
-    public Transaction(User buyer, User seller, Car soldCar) {
-        this.buyer = buyer;
-        this.seller = seller;
-        this.soldCar = soldCar;
-    }
-
-    public Transaction() {
-    }
-
-    public Transaction(Long id, User buyer, User seller, Car soldCar) {
-        this.id = id;
-        this.buyer = buyer;
-        this.seller = seller;
-        this.soldCar = soldCar;
+    public void createReceipt(String buyer, String seller, String car){
+        receipt = buyer + " bought from " + seller + " the car with the following details: " + car;
     }
 
     public Long getId() {
@@ -50,27 +26,19 @@ public class Transaction {
         this.id = id;
     }
 
-    public User getBuyer() {
-        return buyer;
+    public String getReceipt() {
+        return receipt;
     }
 
-    public void setBuyer(User buyer) {
-        this.buyer = buyer;
+    public void setReceipt(String receipt) {
+        this.receipt = receipt;
     }
 
-    public User getSeller() {
-        return seller;
+    public Transaction() {
     }
 
-    public void setSeller(User seller) {
-        this.seller = seller;
-    }
-
-    public Car getSoldCar() {
-        return soldCar;
-    }
-
-    public void setSoldCar(Car soldCar) {
-        this.soldCar = soldCar;
+    public Transaction(Long id, String receipt) {
+        this.id = id;
+        this.receipt = receipt;
     }
 }

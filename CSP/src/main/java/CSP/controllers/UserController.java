@@ -1,10 +1,8 @@
 package CSP.controllers;
 
-import CSP.models.Role;
 import CSP.models.User;
 import CSP.services.RoleService;
 import CSP.services.UserService;
-import com.google.common.hash.Hashing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +42,7 @@ public class UserController {
     @DeleteMapping("/{username}")
     public ResponseEntity<User> deleteUser(@PathVariable String username){
 
-        if(userService.isUsernameTaken(username) && userService.hasUserPermissions(username)){
+        if(userService.isUsernameTaken(username) && userService.hasUserPermissionsToEditUser(username)){
             userService.removeUser(username);
             return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -53,7 +51,7 @@ public class UserController {
 
     @PutMapping("/{username}")
     public ResponseEntity<User> updateUser(@PathVariable String username, @RequestBody User user){
-        if(userService.isUsernameTaken(username) && userService.hasUserPermissions(username)){
+        if(userService.isUsernameTaken(username) && userService.hasUserPermissionsToEditUser(username)){
             userService.updateUser(user, username);
             return new ResponseEntity<>(HttpStatus.OK);
         }

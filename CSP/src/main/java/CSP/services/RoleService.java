@@ -24,12 +24,15 @@ public class RoleService {
         roleRepository.save(newRole);
     }
 
-    public void removeRole(Role role){
-        roleRepository.delete(role);
+    public void removeRole(String role){
+        Role role1 = new Role(roleRepository.findRoleByRole(role));
+        roleRepository.delete(role1);
     }
 
-    public void updateRole(Role newRole){
-        roleRepository.save(newRole);
+    public void updateRole(Role newRole, String roleToUpdate){
+        Role role = new Role(roleRepository.findRoleByRole(roleToUpdate));
+        role.setRole(newRole.getRole());
+        roleRepository.save(role);
     }
 
     public Optional<Role> getUserRole(){
